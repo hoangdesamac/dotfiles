@@ -4,10 +4,15 @@ require("config.lazy")
 -- =================================================================
 -- [START] CẤU HÌNH TỰ ĐỘNG CHO ESP-IDF (ESP-CLANG)
 -- =================================================================
-
+--mkdir -p ~/.local/bin
+--ln -sf \
+--~/.espressif/tools/esp-clang/esp-20.1.1_20250829/esp-clang/bin/clangd \
+--~/.local/bin/esp-clangd
+--echo $PATH
+--export PATH="$HOME/.local/bin:$PATH"
 -- 1. Đường dẫn tới esp-clang chính chủ (Đã lấy từ máy bạn)
 local esp_clangd_cmd = {
-  "/home/hoangdesamac/.espressif/tools/esp-clang/esp-20.1.1_20250829/esp-clang/bin/clangd",
+  "esp-clangd",
   "--background-index",
   "--query-driver=**",
   "--header-insertion=iwyu",
