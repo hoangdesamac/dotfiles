@@ -6,6 +6,7 @@
 
 # Thêm ~/.local/bin vào PATH (thường dùng cho các binary của pip/người dùng và pipx)
 export PATH="$HOME/.local/bin:$PATH"
+export PATH=$PATH:/snap/bin
 
 # Thêm đường dẫn Neovim đã cài đặt qua TAR.GZ
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
@@ -29,7 +30,7 @@ source $ZSH/oh-my-zsh.sh
 # Display Pokemon-colorscripts
 # Project page: https://gitlab.com/phoneybadger/pokemon-colorscripts#on-other-distros-and-macos
 #pokemon-colorscripts --no-title -s -r #without fastfetch
-#pokemon-colorscripts --no-title -s -r | fastfetch -c $HOME/.config/fastfetch/config-pokemon.jsonc --logo-type file-raw --logo-height 10 --logo-width 5 --logo -
+pokemon-colorscripts --no-title -s -r | fastfetch -c $HOME/.config/fastfetch/config-pokemon.jsonc --logo-type file-raw --logo-height 10 --logo-width 5 --logo -
 
 # fastfetch. Will be disabled if above colorscript was chosen to install
 #fastfetch -c $HOME/.config/fastfetch/config-compact.jsonc
@@ -70,7 +71,9 @@ alias idfbuild='idf.py build'
 alias idfflash='idf.py flash'
 # Theo dõi Serial Monitor
 alias idfmonitor='idf.py monitor'
-
+# i3
+alias rlook='regolith-look set'
+alias rrefresh='regolith-look refresh'
 # ====== KHỞI TẠO OH MY POSH VỚI THEME EASY TERM ======
 # Lệnh này phải chạy sau khi Oh My Zsh đã tải xong (sau source $ZSH/oh-my-zsh.sh)
 # Đảm bảo Oh My Posh đã được cài đặt và file theme tồn tại ở đường dẫn này!
@@ -79,3 +82,8 @@ eval "$(oh-my-posh init zsh --config ~/.poshthemes/easy-term.omp.json)"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# MATLAB + NVIDIA (RTX 3050) on Regolith
+export __GLX_VENDOR_LIBRARY_NAME=nvidia
+export __NV_PRIME_RENDER_OFFLOAD=1
+export __VK_LAYER_NV_optimus=NVIDIA_only
+export PATH="$HOME/bin:$PATH"
