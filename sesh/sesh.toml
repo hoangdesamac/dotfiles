@@ -1,0 +1,22 @@
+# ========================
+# sesh configuration
+# ========================
+
+[default_session]
+startup_command = "nvim"
+
+# ========================
+# Search project folders
+# ========================
+
+[[search_dirs]]
+path = "/home/hoangdesamac/projects"
+depth = 2
+
+
+# ========================
+# Session behavior
+# ========================
+
+[tmux]
+attach = true
