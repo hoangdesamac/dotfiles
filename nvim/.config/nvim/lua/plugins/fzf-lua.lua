@@ -23,8 +23,9 @@ return {
       
       -- Tối ưu hóa bộ lọc cho dự án Nhúng (PlatformIO)
       files = {
-        cmd = "fd --type f --hidden --follow --exclude .git --exclude .pio --exclude node_modules",
-      },
+  fd_opts = "--type f --hidden --follow --exclude .git --exclude .pio --exclude node_modules",
+},
+
       
       grep = {
         rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 --glob '!.git/*' --glob '!.pio/*' --glob '!node_modules/*'",

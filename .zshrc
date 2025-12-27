@@ -49,10 +49,21 @@ alias update='sudo apt update && sudo apt upgrade -y'
 alias top='htop'
 alias reload='source ~/.zshrc'
 
+# Tmux
+alias tm='tmux'
+
+# Lazydocker
+alias lzd='lazydocker'
+
+# Lazygit
+alias lzg='lazygit'
 # ====== ALIASES CHO PHÁT TRIỂN & GIT ======
 
 # Git status
 alias gs='git status'
+# Git init
+alias gi='git init'
+alias ga='git add'
 # Git commit
 alias gc='git commit -m'
 # Git push
