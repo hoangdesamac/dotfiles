@@ -18,8 +18,8 @@ return {
     -- 2. Xóa nền nâng cao theo Prefix (cho icon, statusline đẹp hơn)
     local transparent = require("transparent")
     transparent.clear_prefix("NeoTree")
-    transparent.clear_prefix("lualine")
-    transparent.clear_prefix("BufferLine")
+    -- transparent.clear_prefix("lualine")
+    -- transparent.clear_prefix("BufferLine")
 
     -- 3. CÂU LỆNH QUAN TRỌNG: Ép buộc bật chế độ trong suốt
     vim.cmd("TransparentEnable")

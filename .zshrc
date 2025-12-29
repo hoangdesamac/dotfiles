@@ -95,7 +95,7 @@ alias idfmonitor='idf.py monitor'
 alias rlook='regolith-look set'
 alias rrefresh='regolith-look refresh'
 # ====== KHỞI TẠO OH MY POSH VỚI THEME EASY TERM ======
-eval "$(oh-my-posh init zsh --config ~/.poshthemes/easy-term.omp.json)"
+eval "$(oh-my-posh init zsh --config ~/.poshthemes/bubbles.omp.json)"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
