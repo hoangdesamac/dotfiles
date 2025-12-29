@@ -2,14 +2,9 @@ return {
   {
     "neovim/nvim-lspconfig",
 
-    -- 1. Phần Logic khởi chạy (Đặt trong init function)
+    -- 1. Giữ nguyên logic khởi chạy ESP-CLANGD của bạn (đã hoạt động)
     init = function()
-      -- =================================================================
-      -- [START] LOGIC KHỞI CHẠY ESP-CLANGD
-      -- =================================================================
-
-      -- QUAN TRỌNG: Hãy thay dòng dưới bằng đường dẫn TUYỆT ĐỐI tới file esp-clangd trên máy bạn
-      -- Ví dụ: "/home/user/.espressif/tools/esp-clang/.../bin/clangd"
+      -- Thay đường dẫn này bằng đường dẫn tuyệt đối nếu cần
       local esp_clang_path = "esp-clangd"
 
       local esp_clangd_cmd = {
@@ -23,15 +18,16 @@ return {
         "--fallback-style=llvm",
       }
 
-      -- Hàm tìm thư mục gốc
+      -- [SỬA QUAN TRỌNG 1]: Chỉ tìm file đặc trưng của ESP (sdkconfig, platformio)
+      -- Bỏ .git và compile_commands.json đi để tránh nhận nhầm Linux Kernel là ESP
       local function get_esp_root_dir()
         local current_buf = vim.api.nvim_buf_get_name(0)
-        -- Tránh lỗi khi buffer chưa có tên
         if current_buf == "" then
           return nil
         end
 
-        local root_file = vim.fs.find({ "compile_commands.json", "platformio.ini", ".git" }, {
+        -- Chỉ tìm sdkconfig hoặc platformio.ini
+        local root_file = vim.fs.find({ "sdkconfig", "platformio.ini" }, {
           upward = true,
           path = vim.fs.dirname(current_buf),
         })[1]
@@ -42,13 +38,12 @@ return {
         return nil
       end
 
-      -- Tạo Autocommand
+      -- Autocommand giữ nguyên
       vim.api.nvim_create_autocmd("FileType", {
         pattern = { "c", "cpp", "objc", "objcpp" },
         callback = function()
           local root = get_esp_root_dir()
-
-          -- Kiểm tra file thực thi có tồn tại không trước khi chạy
+          -- Nếu tìm thấy sdkconfig -> Bật ESP-Clangd
           if root and (vim.fn.executable(esp_clang_path) == 1 or esp_clang_path == "esp-clangd") then
             vim.lsp.start({
               name = "esp-clangd",
@@ -66,17 +61,27 @@ return {
           end
         end,
       })
-      -- =================================================================
-      -- [END] LOGIC ESP-CLANGD
-      -- =================================================================
     end,
 
-    -- 2. Phần Cấu hình LazyVim (Chặn clangd mặc định)
+    -- 2. Logic phân luồng thông minh (Thay vì chặn tất cả)
     opts = {
       setup = {
-        clangd = function()
-          -- Trả về true để báo cho LazyVim: "Đừng bật clangd thường, tôi tự lo rồi"
-          return true
+        clangd = function(_, opts)
+          -- Lấy tên file hiện tại
+          local fname = vim.api.nvim_buf_get_name(0)
+          local util = require("lspconfig.util")
+
+          -- Kiểm tra xem thư mục này có phải ESP32 không?
+          local is_esp_project = util.root_pattern("sdkconfig", "platformio.ini")(fname)
+
+          if is_esp_project then
+            -- Nếu là ESP32 -> return true để CHẶN clangd thường (nhường sân cho code ở trên chạy)
+            return true
+          end
+
+          -- Nếu KHÔNG phải ESP32 (ví dụ: Linux Kernel) -> return false
+          -- Để LazyVim tự động bật clangd chuẩn lên
+          return false
         end,
       },
     },
