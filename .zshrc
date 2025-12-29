@@ -45,10 +45,18 @@ alias la='ls -a'
 alias lla='ls -la'
 alias lt='ls --tree'
 
+# fzf
+source <(fzf --zsh)
+alias f=fzf
+# preview with bat
+alias fp='fzf --preview="bat --color=always {}"'
+# open neovim with select file by tab
+alias fv='nvim $(fzf -m --preview="bat --color=always {}")'
+
 # Alias thêm:
 alias update='sudo apt update && sudo apt upgrade -y'
-alias top='htop'
-alias reload='source ~/.zshrc'
+alias ht='htop'
+alias ss='source ~/.zshrc'
 
 # Tmux
 alias tm='tmux'
@@ -66,7 +74,7 @@ alias gs='git status'
 alias gi='git init'
 alias ga='git add'
 # Git commit
-alias gc='git commit -m'
+alias gcm='git commit -m'
 # Git push
 alias gp='git push'
 # Git pull
