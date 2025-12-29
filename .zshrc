@@ -95,8 +95,6 @@ alias idfmonitor='idf.py monitor'
 alias rlook='regolith-look set'
 alias rrefresh='regolith-look refresh'
 # ====== KHỞI TẠO OH MY POSH VỚI THEME EASY TERM ======
-# Lệnh này phải chạy sau khi Oh My Zsh đã tải xong (sau source $ZSH/oh-my-zsh.sh)
-# Đảm bảo Oh My Posh đã được cài đặt và file theme tồn tại ở đường dẫn này!
 eval "$(oh-my-posh init zsh --config ~/.poshthemes/easy-term.omp.json)"
 
 export NVM_DIR="$HOME/.nvm"
