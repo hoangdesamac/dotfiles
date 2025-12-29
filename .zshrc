@@ -9,7 +9,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH=$PATH:/snap/bin
 
 # Thêm đường dẫn Neovim đã cài đặt qua TAR.GZ
-export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+#export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
 # =======================================================
 export ZSH="$HOME/.oh-my-zsh"
