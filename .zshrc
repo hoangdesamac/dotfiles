@@ -38,6 +38,7 @@ pokemon-colorscripts --no-title -s -r | fastfetch -c $HOME/.config/fastfetch/con
 # ====== ALIASES CƠ BẢN VÀ LSD ======
 # Vim
 alias vim='nvim'
+alias nv='nvim'
 # Set-up icons for files/directories in terminal using lsd
 alias ls='lsd'
 alias l='ls -l'
