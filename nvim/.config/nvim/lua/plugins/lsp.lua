@@ -2,7 +2,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "hrsh7th/cmp-nvim-lsp", -- Cần cái này để lấy capabilities chuẩn
+      "saghen/blink.cmp", -- [FIX] Dùng blink thay vì cmp-nvim-lsp
       {
         "SmiteshP/nvim-navic",
         opts = {
@@ -44,7 +44,6 @@ return {
 
     init = function()
       local esp_clang_path = "esp-clangd"
-      -- Các cờ khởi động server
       local esp_clangd_cmd = {
         esp_clang_path,
         "--background-index",
@@ -54,11 +53,10 @@ return {
         "--completion-style=detailed",
         "--function-arg-placeholders",
         "--fallback-style=llvm",
-        "--all-scopes-completion", -- [QUAN TRỌNG] Quét cả phạm vi global/static
+        "--all-scopes-completion",
         "--header-insertion-decorators=0",
       }
 
-      -- Hàm tìm thư mục gốc của dự án ESP-IDF
       local function get_esp_root_dir()
         local current_buf = vim.api.nvim_buf_get_name(0)
         if current_buf == "" then
@@ -74,22 +72,21 @@ return {
         return nil
       end
 
-      -- Tự động chạy khi mở file C/C++
       vim.api.nvim_create_autocmd("FileType", {
         pattern = { "c", "cpp", "objc", "objcpp" },
         callback = function()
           local root = get_esp_root_dir()
           if root and (vim.fn.executable(esp_clang_path) == 1 or esp_clang_path == "esp-clangd") then
-            -- 1. Tạo capabilities chuẩn từ CMP
+            -- [FIX QUAN TRỌNG] Lấy capabilities từ Blink thay vì cmp-nvim-lsp
             local capabilities = vim.lsp.protocol.make_client_capabilities()
-            local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-            if status_ok then
-              capabilities = cmp_nvim_lsp.default_capabilities()
+            local has_blink, blink = pcall(require, "blink.cmp")
+            if has_blink then
+              capabilities = blink.get_lsp_capabilities(capabilities)
             end
 
-            -- [FIX LỖI CHI TIẾT] Ép buộc hỗ trợ Full 26 loại Symbol
+            -- Vẫn giữ đoạn ép buộc này để hiện chi tiết cây thư mục
             capabilities.textDocument.documentSymbol = {
-              hierarchicalDocumentSymbolSupport = true, -- Cho phép hiện cây thư mục (Struct > Field)
+              hierarchicalDocumentSymbolSupport = true,
               dynamicRegistration = false,
               symbolKind = {
                 valueSet = {
@@ -134,10 +131,7 @@ return {
                 clangdFileStatus = true,
               },
               on_attach = function(client, bufnr)
-                -- Tắt highlight mặc định nếu thấy rối
                 client.server_capabilities.semanticTokensProvider = nil
-
-                -- [NAVIC] Gắn Navic vào (Không cần kiểm tra điều kiện if nữa cho chắc ăn)
                 local navic = require("nvim-navic")
                 navic.attach(client, bufnr)
               end,
@@ -147,7 +141,6 @@ return {
       })
     end,
 
-    -- Logic chặn clangd thường để tránh xung đột với esp-clangd
     opts = {
       setup = {
         clangd = function(_, opts)
@@ -155,7 +148,7 @@ return {
           local util = require("lspconfig.util")
           local is_esp_project = util.root_pattern("sdkconfig", "platformio.ini")(fname)
           if is_esp_project then
-            return true -- Return true để chặn clangd mặc định start
+            return true
           end
           return false
         end,
