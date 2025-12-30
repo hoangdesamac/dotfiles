@@ -9,7 +9,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH=$PATH:/snap/bin
 
 # Thêm đường dẫn Neovim đã cài đặt qua TAR.GZ
-#export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
 # =======================================================
 export ZSH="$HOME/.oh-my-zsh"
@@ -95,7 +95,7 @@ alias idfmonitor='idf.py monitor'
 alias rlook='regolith-look set'
 alias rrefresh='regolith-look refresh'
 # ====== KHỞI TẠO OH MY POSH VỚI THEME EASY TERM ======
-eval "$(oh-my-posh init zsh --config ~/.poshthemes/bubbles.omp.json)"
+eval "$(oh-my-posh init zsh --config ~/.poshthemes/easy-term.omp.json)"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
