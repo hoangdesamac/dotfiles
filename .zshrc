@@ -36,6 +36,8 @@ pokemon-colorscripts --no-title -s -r | fastfetch -c $HOME/.config/fastfetch/con
 #fastfetch -c $HOME/.config/fastfetch/config-compact.jsonc
 
 # ====== ALIASES CƠ BẢN VÀ LSD ======
+# Ranger
+alias rr='ranger'
 # Clear
 alias cls='clear'
 # Vim
