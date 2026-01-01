@@ -1,0 +1,102 @@
+# ================================================
+# SUPERFILE CONFIG (OPTIMIZED)
+# ================================================
+
+# Change your theme
+theme = 'catppuccin'
+
+# Editor: Để trống để dùng biến $EDITOR của hệ thống (thường là vim/nano)
+editor = ""
+
+# Dir Editor: Để trống dùng mặc định
+dir_editor = ""
+
+# Tắt tự kiểm tra update để khởi động nhanh hơn (bật lại nếu muốn luôn mới nhất)
+auto_check_update = false
+
+# --- TỐI ƯU QUAN TRỌNG ---
+# Cho phép khi thoát Superfile, terminal sẽ ở ngay thư mục bạn đang đứng
+# (Cần cấu hình thêm alias trong .zshrc hoặc .bashrc, xem hướng dẫn bên dưới)
+cd_on_quit = true
+
+# Mặc định mở preview file
+default_open_file_preview = true
+
+# Hiển thị preview ảnh (nếu terminal hỗ trợ)
+show_image_preview = true
+
+# Ẩn bớt footer info để giao diện thoáng hơn (Clean UI)
+# Nếu bạn thích nhiều thông tin thì đổi thành true
+show_panel_footer_info = false
+
+# Thư mục mặc định khi mở
+default_directory = "."
+
+# Hiển thị file ẩn (dotfiles) mặc định khi khởi động
+show_hidden = true
+
+# Hiển thị size theo chuẩn 1024 (KiB) hay 1000 (KB). 
+# True = GB (dễ đọc), False = GiB (chuẩn máy tính). Để True cho thân thiện.
+file_size_use_si = true
+
+# Sắp xếp mặc định (0: Name, 1: Size, 2: Date, 3: Type)
+default_sort_type = 0
+
+# Thứ tự sắp xếp
+sort_order_reversed = false
+
+# Phân biệt hoa thường
+case_sensitive_sort = false
+
+# Đóng shell sau khi chạy lệnh thành công (giữ false để còn nhìn kết quả)
+shell_close_on_success = false
+
+# Debug
+debug = false
+ignore_missing_fields = true
+
+# ================ STYLE & UI =================
+
+# Dùng 'bat' để highlight code đẹp hơn nếu đã cài đặt (nếu chưa cài bat thì để rỗng "")
+code_previewer = ''
+
+# Dùng font icon xịn
+nerdfont = true
+
+# Hiện checkbox khi chọn
+show_select_icons = true
+
+# --- TRANSPARENCY (YÊU CẦU CỦA BẠN) ---
+# Bật trong suốt để ăn theo nền Terminal
+transparent_background = true
+
+# Độ rộng khung preview: 0 = tự động cân đối
+file_preview_width = 0
+
+# Độ rộng sidebar: 20 là vừa đẹp
+sidebar_width = 20
+
+# Border Style: Giữ nguyên nét mảnh cho tinh tế
+border_top = '─'
+border_bottom = '─'
+border_left = '│'
+border_right = '│'
+border_top_left = '╭'
+border_top_right = '╮'
+border_bottom_left = '╰'
+border_bottom_right = '╯'
+border_middle_left = '├'
+border_middle_right = '┤'
+
+# ========== PLUGINS (TỐI ƯU NĂNG SUẤT) ==========
+
+# Hiện chi tiết Metadata (cần cài 'exiftool')
+# Bật true nếu bạn hay xem thông số ảnh/video
+metadata = false
+
+# Tạo mã MD5 (tốn tài nguyên CPU, nên tắt nếu không cần thiết)
+enable_md5_checksum = false
+
+# Hỗ trợ Zoxide (nhảy thư mục thông minh). 
+# Nếu máy bạn đã cài zoxide, hãy đổi thành true -> Cực kỳ tiện lợi.
+zoxide_support = false

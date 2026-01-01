@@ -96,7 +96,7 @@ alias idfmonitor='idf.py monitor'
 alias rlook='regolith-look set'
 alias rrefresh='regolith-look refresh'
 # ====== KHỞI TẠO OH MY POSH VỚI THEME EASY TERM ======
-eval "$(oh-my-posh init zsh --config ~/.poshthemes/easy-term.omp.json)"
+eval "$(oh-my-posh init zsh --config ~/.poshthemes/bubblesextra.omp.json)"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -106,3 +106,4 @@ export __GLX_VENDOR_LIBRARY_NAME=nvidia
 export __NV_PRIME_RENDER_OFFLOAD=1
 export __VK_LAYER_NV_optimus=NVIDIA_only
 export PATH="$HOME/bin:$PATH"
+export FILE_MANAGER=thunar
