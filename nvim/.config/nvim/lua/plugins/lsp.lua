@@ -55,6 +55,7 @@ return {
         "--fallback-style=llvm",
         "--all-scopes-completion",
         "--header-insertion-decorators=0",
+        "--compile-commands-dir=build", -- <--- THÊM DÒNG NÀY (Chỉ định rõ nơi chứa file json)
       }
 
       local function get_esp_root_dir()

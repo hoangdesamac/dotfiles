@@ -65,7 +65,9 @@ alias ss='source ~/.zshrc'
 
 # Tmux
 alias tm='tmux'
-
+alias tmc='tm attach-session -t c-5'
+alias tmd='tm attach-session -t Dotfiles-3'
+alias tmr='tm attach-session -t rr-3'
 # Lazydocker
 alias lzd='lazydocker'
 
@@ -89,7 +91,7 @@ alias gpl='git pull'
 
 # Thiết lập môi trường IDF
 # Lệnh này sẽ kích hoạt môi trường Python ảo và thiết lập các biến $PATH.
-alias idfinit='. ~/esp/esp-idf/export.sh'
+alias idfinit='. ~/esp-idf/export.sh'
 # Xây dựng dự án
 alias idfbuild='idf.py build'
 # Flash chương trình
