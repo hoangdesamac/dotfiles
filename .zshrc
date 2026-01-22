@@ -66,8 +66,9 @@ alias ss='source ~/.zshrc'
 # Tmux
 alias tm='tmux'
 alias tmc='tm attach-session -t c-5'
-alias tmd='tm attach-session -t Dotfiles-3'
+alias tmd='tm attach-session -t d-5'
 alias tmr='tm attach-session -t rr-3'
+alias tmk='tm attach-session -t kot-4'
 # Lazydocker
 alias lzd='lazydocker'
 
@@ -113,3 +114,20 @@ export __NV_PRIME_RENDER_OFFLOAD=1
 export __VK_LAYER_NV_optimus=NVIDIA_only
 export PATH="$HOME/bin:$PATH"
 export FILE_MANAGER=thunar
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/hoangdesamac/.sdkman"
+[[ -s "/home/hoangdesamac/.sdkman/bin/sdkman-init.sh" ]] && source "/home/hoangdesamac/.sdkman/bin/sdkman-init.sh"
+# ====== ANDROID SDK CONFIGURATION (ADDED) ======
+export ANDROID_HOME="$HOME/Android/Sdk"
+export PATH="$PATH:$ANDROID_HOME/emulator"
+export PATH="$PATH:$ANDROID_HOME/platform-tools"
+export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
+export PATH="$PATH:$ANDROID_HOME/build-tools"
+
+# Alias cho Android (Theo phong cách của bạn)
+alias adbd='adb devices'           # Liệt kê thiết bị đang kết nối
+alias adbl='adb logcat'            # Xem log của điện thoại
+alias avdlist='emulator -list-avds' # Liệt kê các máy ảo đã tạo
+alias avdrun='emulator -avd'       # Chạy máy ảo (Ví dụ: avdrun MyDevice)
+# ===============================================
