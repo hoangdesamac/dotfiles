@@ -67,7 +67,6 @@ alias ss='source ~/.zshrc'
 alias tm='tmux'
 alias tmc='tm attach-session -t c-5'
 alias tmd='tm attach-session -t d-5'
-alias tmr='tm attach-session -t rr-3'
 alias tmk='tm attach-session -t kot-4'
 # Lazydocker
 alias lzd='lazydocker'
