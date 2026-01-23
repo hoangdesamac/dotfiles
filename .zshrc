@@ -130,3 +130,8 @@ alias adbl='adb logcat'            # Xem log của điện thoại
 alias avdlist='emulator -list-avds' # Liệt kê các máy ảo đã tạo
 alias avdrun='emulator -avd'       # Chạy máy ảo (Ví dụ: avdrun MyDevice)
 # ===============================================
+# Chế độ Android (Tắt VirtualBox, bật KVM)
+alias to-android="sudo modprobe -r vboxnetadp vboxnetflt vboxdrv && sudo modprobe kvm_intel && echo '🟢 Ready for Android Emulator!'"
+
+# Chế độ Proteus/VirtualBox (Tắt KVM, bật VirtualBox)
+alias to-vbox="sudo modprobe -r kvm_intel kvm && sudo modprobe vboxdrv && echo '🔵 Ready for VirtualBox!'"
