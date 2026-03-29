@@ -44,7 +44,7 @@ source $ZSH/oh-my-zsh.sh
 # 5. CÔNG CỤ TƯƠNG TÁC (FZF, DISPLAY)
 # =======================================================
 # FZF Configuration
-source <(fzf --zsh)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 alias f=fzf
 alias fp='fzf --preview="bat --color=always {}"'
 alias fv='nvim $(fzf -m --preview="bat --color=always {}")'
@@ -54,7 +54,6 @@ pokemon-colorscripts --no-title -s -r | fastfetch -c $HOME/.config/fastfetch/con
 
 # Khởi tạo Oh-My-Posh Theme
 eval "$(oh-my-posh init zsh --config ~/.poshthemes/emodipt-extend.omp.json)"
-
 # =======================================================
 # 6. ALIASES (ĐỊNH DANH LỆNH TẮT)
 # =======================================================
@@ -115,3 +114,21 @@ alias rrefresh='regolith-look refresh'
 # =======================================================
 export SDKMAN_DIR="/home/hoangdesamac/.sdkman"
 [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/hoangdesamac/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/hoangdesamac/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/hoangdesamac/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/hoangdesamac/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
