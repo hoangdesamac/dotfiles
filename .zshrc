@@ -53,7 +53,7 @@ alias fv='nvim $(fzf -m --preview="bat --color=always {}")'
 pokemon-colorscripts --no-title -s -r | fastfetch -c $HOME/.config/fastfetch/config-pokemon.jsonc --logo-type file-raw --logo-height 10 --logo-width 5 --logo -
 
 # Khởi tạo Oh-My-Posh Theme
-eval "$(oh-my-posh init zsh --config ~/.poshthemes/emodipt-extend.omp.json)"
+eval "$(oh-my-posh init zsh --config ~/.poshthemes/atomicBit.omp.json)"
 # =======================================================
 # 6. ALIASES (ĐỊNH DANH LỆNH TẮT)
 # =======================================================
@@ -119,14 +119,14 @@ export SDKMAN_DIR="/home/hoangdesamac/.sdkman"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/hoangdesamac/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/home/hoangdesamac/miniconda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/hoangdesamac/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/hoangdesamac/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "/home/hoangdesamac/miniconda/etc/profile.d/conda.sh" ]; then
+        . "/home/hoangdesamac/miniconda/etc/profile.d/conda.sh"
     else
-        export PATH="/home/hoangdesamac/miniconda3/bin:$PATH"
+        export PATH="/home/hoangdesamac/miniconda/bin:$PATH"
     fi
 fi
 unset __conda_setup

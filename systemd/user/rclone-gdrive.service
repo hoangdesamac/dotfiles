@@ -1,0 +1,21 @@
+[Unit]
+Description=Rclone Mount Google Drive
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Lệnh chạy (Không dùng --daemon ở đây vì systemd sẽ tự quản lý)
+ExecStart=/usr/bin/rclone mount gdrive: /home/hoangdesamac/Clouds/GoogleDrive \
+    --vfs-cache-mode writes \
+    --vfs-cache-max-age 24h \
+    --vfs-cache-max-size 10G \
+    --allow-other
+# Tự động mount lại sau 10 giây nếu bị sập
+Restart=always
+RestartSec=10
+# Lệnh để gỡ mount sạch sẽ khi tắt máy
+ExecStop=/bin/fusermount -u /home/hoangdesamac/Clouds/GoogleDrive
+
+[Install]
+WantedBy=default.target
