@@ -43,21 +43,15 @@ return {
     },
 
     init = function()
-      local esp_clang_path = "esp-clangd"
-      local esp_clangd_cmd = {
-        esp_clang_path,
-        "--background-index",
-        "--query-driver=**",
-        "--header-insertion=iwyu",
-        "--clang-tidy",
-        "--completion-style=detailed",
-        "--function-arg-placeholders",
-        "--fallback-style=llvm",
-        "--all-scopes-completion",
-        "--header-insertion-decorators=0",
-        "--compile-commands-dir=build", -- <--- THÊM DÒNG NÀY (Chỉ định rõ nơi chứa file json)
-      }
+      -- TỰ ĐỘNG TÌM ĐƯỜNG DẪN:
+      -- Quét trong thư mục tools/esp-clang để tìm file 'clangd' sâu nhất
+      local find_clangd_cmd = "find $HOME/.espressif/tools/esp-clang -name 'clangd' -executable -type f | head -n 1"
+      local detected_path = vim.fn.system(find_clangd_cmd):gsub("%s+", "")
 
+      -- Kiểm tra nếu tìm thấy thì dùng, không thì mặc định là "clangd"
+      local esp_clang_path = (detected_path ~= "" and vim.v.shell_error == 0) and detected_path or "clangd"
+
+      -- Hàm tìm root của dự án (Giữ nguyên)
       local function get_esp_root_dir()
         local current_buf = vim.api.nvim_buf_get_name(0)
         if current_buf == "" then
@@ -67,25 +61,37 @@ return {
           upward = true,
           path = vim.fs.dirname(current_buf),
         })[1]
-        if root_file then
-          return vim.fs.dirname(root_file)
-        end
-        return nil
+        return root_file and vim.fs.dirname(root_file) or nil
       end
 
       vim.api.nvim_create_autocmd("FileType", {
         pattern = { "c", "cpp", "objc", "objcpp" },
         callback = function()
           local root = get_esp_root_dir()
-          if root and (vim.fn.executable(esp_clang_path) == 1 or esp_clang_path == "esp-clangd") then
-            -- [FIX QUAN TRỌNG] Lấy capabilities từ Blink thay vì cmp-nvim-lsp
+          if root and (vim.fn.executable(esp_clang_path) == 1) then
+            local esp_clangd_cmd = {
+              esp_clang_path,
+              "--background-index",
+              -- Giữ lại query-driver để tìm stdio.h
+              "--query-driver=/home/hoangdesamac/.espressif/tools/*/bin/*gcc*",
+              "--header-insertion=iwyu",
+              "--clang-tidy",
+              "--completion-style=detailed",
+              "--function-arg-placeholders",
+              "--fallback-style=llvm",
+              "--all-scopes-completion",
+              "--header-insertion-decorators=0",
+              "--compile-commands-dir=" .. (root or ".") .. "/build",
+            }
+
+            -- ... (Phần còn lại của vim.lsp.start giữ nguyên)
+
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             local has_blink, blink = pcall(require, "blink.cmp")
             if has_blink then
               capabilities = blink.get_lsp_capabilities(capabilities)
             end
 
-            -- Vẫn giữ đoạn ép buộc này để hiện chi tiết cây thư mục
             capabilities.textDocument.documentSymbol = {
               hierarchicalDocumentSymbolSupport = true,
               dynamicRegistration = false,
@@ -149,7 +155,7 @@ return {
           local util = require("lspconfig.util")
           local is_esp_project = util.root_pattern("sdkconfig", "platformio.ini")(fname)
           if is_esp_project then
-            return true
+            return true -- Vô hiệu hóa clangd mặc định nếu là project ESP
           end
           return false
         end,
