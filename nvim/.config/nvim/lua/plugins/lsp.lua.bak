@@ -1,0 +1,54 @@
+return {
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      "saghen/blink.cmp",
+      {
+        "SmiteshP/nvim-navic",
+        opts = { lsp = { auto_attach = true }, highlight = true },
+      },
+    },
+    opts = {
+      -- 1. CHẶN TRIỆT ĐỂ THẰNG TVM ĐANG PHÁ ĐÁM
+      servers = {
+        tvm_ffi_navigator = {
+          enabled = false, -- QUAN TRỌNG: Dòng này sẽ xóa sổ lỗi Warn của bạn
+          autostart = false,
+        },
+        pyright = {},
+        ruff = {},
+      },
+      -- 2. CẤU HÌNH ESP-CLANGD
+      setup = {
+        clangd = function(_, opts)
+          local find_cmd = "find $HOME/.espressif/tools/esp-clang -name 'clangd' -executable -type f | head -n 1"
+          local esp_path = vim.fn.system(find_cmd):gsub("%s+", "")
+          local final_path = (esp_path ~= "" and vim.v.shell_error == 0) and esp_path or "clangd"
+
+          local util = require("lspconfig.util")
+          local root = util.root_pattern("sdkconfig", "platformio.ini")(vim.api.nvim_buf_get_name(0))
+
+          if root then
+            require("lspconfig").clangd.setup({
+              cmd = {
+                final_path,
+                "--background-index",
+                "--query-driver=/home/hoangdesamac/.espressif/tools/*/bin/*gcc*",
+                "--compile-commands-dir=" .. root .. "/build",
+                "--header-insertion=iwyu",
+              },
+              root_dir = root,
+              on_attach = function(client, bufnr)
+                if client.server_capabilities.documentSymbolProvider then
+                  require("nvim-navic").attach(client, bufnr)
+                end
+              end,
+            })
+            return true
+          end
+          return false
+        end,
+      },
+    },
+  },
+}
