@@ -53,8 +53,6 @@ bluez
 bolt
 bpfcc-tools
 bpftrace
-brave-browser
-brave-keyring
 brightness-controller
 brightness-udev
 brightnessctl
@@ -78,7 +76,6 @@ cloud-init
 cmake-data
 cmake-extras
 cmake
-code
 colord-data
 colord
 command-not-found
@@ -294,7 +291,6 @@ gnome-keyring-pkcs11
 gnome-keyring
 gnome-menus
 gnome-power-manager
-gnome-remote-desktop
 gnome-session-bin
 gnome-session-canberra
 gnome-session-common
@@ -367,7 +363,6 @@ humanity-icon-theme
 hunspell-en-us
 hwdata
 hypridle
-hyprlock
 hyprsunset
 hyprwayland-scanner
 i3status
@@ -672,8 +667,6 @@ libegl-dev
 libegl-mesa0
 libegl1-mesa-dev
 libegl1
-libei1
-libeis1
 libel-api-java
 libelf1t64
 libenchant-2-2
@@ -742,8 +735,6 @@ libfprint-2-tod1
 libfreeaptx0
 libfreehand-0.1-1
 libfreeimage3
-libfreerdp-server3-3
-libfreerdp3-3
 libfreetype-dev
 libfreetype6
 libfreexl1
@@ -907,7 +898,6 @@ libhwloc-plugins
 libhwloc15
 libhwy1t64
 libhyphen0
-libhyprgraphics4
 libhyprlang2
 libhyprutils11
 libib-util
@@ -1106,7 +1096,6 @@ libmpg123-0t64
 libmspub-0.1-1
 libmtdev-dev
 libmtdev1t64
-libmutter-14-0
 libmwaw-0.3-3
 libmysofa1
 libmysqlclient21
@@ -1593,11 +1582,8 @@ libtss2-rc0t64
 libtss2-sys1t64
 libtss2-tcti-cmd0t64
 libtss2-tcti-device0t64
-libtss2-tcti-libtpms0t64
 libtss2-tcti-mssim0t64
-libtss2-tcti-spi-helper0t64
 libtss2-tcti-swtpm0t64
-libtss2-tctildr0t64
 libtumbler-1-0t64
 libtwolame0
 libu2f-udev
@@ -1621,6 +1607,7 @@ liburi-perl
 liburiparser1
 libusb-1.0-0
 libusbmuxd6
+libutempter0
 libuuid1
 libuv1t64
 libv4l-0t64
@@ -1667,7 +1654,6 @@ libwebrtc-audio-processing1
 libwebsocket-api-java
 libwhoopsie-preferences0
 libwhoopsie0
-libwinpr3-3
 libwireplumber-0.4-0
 libwmf-0.2-7-gtk
 libwmf-0.2-7
@@ -1887,8 +1873,6 @@ mount
 mousetweaks
 mscompress
 mtr-tiny
-mutter-common-bin
-mutter-common
 mysql-common
 nano
 nautilus-sendto
@@ -2437,6 +2421,7 @@ xserver-xorg-video-vesa
 xserver-xorg-video-vmware
 xserver-xorg
 xsltproc
+xterm
 xtrans-dev
 xxd
 xz-utils

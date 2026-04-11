@@ -1,5 +1,5 @@
 Types: deb
-URIs: https://qgis.org/debian-ltr
+URIs: https://qgis.org/debian
 Suites: noble
 Architectures: amd64
 Components: main
