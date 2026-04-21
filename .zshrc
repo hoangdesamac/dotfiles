@@ -82,7 +82,7 @@ alias l='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
 alias lt='ls --tree'
-
+alias pi='ssh hoangdesamac@192.168.1.100'
 # =======================================================
 # 7. SDKMAN & CONDA (PHẢI Ở CUỐI CÙNG)
 # =======================================================

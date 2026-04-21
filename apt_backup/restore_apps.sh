@@ -1,53 +1,60 @@
 #!/bin/bash
 
-# Chuyển vào đúng thư mục chứa backup
-cd "$(dirname "$0")"
+# 1. Định nghĩa màu sắc cho dễ nhìn
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
 
-echo "--- 1. Dọn dẹp cấu hình cũ gây xung đột ---"
+echo -e "${BLUE}>>> Đang dọn dẹp các cấu hình cũ bị lỗi...${NC}"
 sudo rm -f /etc/apt/sources.list.d/qgis.*
 sudo rm -f /etc/apt/sources.list.d/github-cli.list
 sudo rm -f /etc/apt/sources.list.d/vscode.list
+sudo rm -f /etc/apt/sources.list.d/brave-browser*.list
 
-echo "--- 2. Khôi phục chìa khóa xác thực (Keyrings) ---"
+echo -e "${BLUE}>>> Đang cài đặt công cụ hỗ trợ (curl, gpg, wget)...${NC}"
+sudo apt update && sudo apt install -y curl gpg wget
+
+echo -e "${BLUE}>>> Đang tải Keyrings mới nhất từ trang chủ các hãng...${NC}"
 sudo mkdir -p /usr/share/keyrings
 
-# Brave Browser Key
-sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+# Brave Browser
+curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 
-# VS Code Key
+# VS Code
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /usr/share/keyrings/vscode.gpg >/dev/null
 
-# GitHub CLI Key
-sudo curl -fsSLo /usr/share/keyrings/githubcli-archive-keyring.gpg https://cli.github.com/packages/githubcli-archive-keyring.gpg
+# GitHub CLI
+curl -fsSLo /usr/share/keyrings/githubcli-archive-keyring.gpg https://cli.github.com/packages/githubcli-archive-keyring.gpg
 
-# QGIS Key
-sudo wget -qO- https://qgis.org/downloads/qgis-2022.gpg.key | sudo gpg --dearmor --yes -o /usr/share/keyrings/qgis-archive-keyring.gpg
+# QGIS (Dùng keyserver trực tiếp)
+sudo gpg --no-default-keyring --keyring /usr/share/keyrings/qgis-archive-keyring.gpg --keyserver keyserver.ubuntu.com --recv-keys D155B8E6A419C5BE
 
-echo "--- 3. Khôi phục danh sách kho phần mềm (Sources) ---"
-# VS Code
+echo -e "${BLUE}>>> Đang thiết lập danh sách Repository mới...${NC}"
+# Thêm VS Code
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/vscode.gpg] https://packages.microsoft.com/repos/code stable main" | sudo tee /etc/apt/sources.list.d/vscode.list
 
-# GitHub CLI
+# Thêm Brave
+echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+
+# Thêm GitHub CLI
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list
 
-# QGIS
+# Thêm QGIS (Bản Noble cho 24.04)
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/qgis-archive-keyring.gpg] https://qgis.org/debian noble main" | sudo tee /etc/apt/sources.list.d/qgis.list
 
-# Khôi phục các PPA khác từ backup (nếu có)
-if [ -d "sources.list.d" ]; then
-  sudo cp -n sources.list.d/* /etc/apt/sources.list.d/ 2>/dev/null || true
-fi
-
-echo "--- 4. Cập nhật hệ thống ---"
+echo -e "${GREEN}>>> Đang cập nhật hệ thống với cấu hình mới...${NC}"
 sudo apt update
 
-echo "--- 5. Cài đặt lại các ứng dụng từ package_list.txt ---"
+echo -e "${GREEN}>>> Đang tiến hành cài đặt ứng dụng...${NC}"
+# Ưu tiên cài các app chính trước để đảm bảo có đồ dùng ngay
+sudo apt install -y code brave-browser gh qgis kitty nvim fastfetch
+
+# Sau đó mới quét file package_list.txt để cài các app phụ còn thiếu
 if [ -f "package_list.txt" ]; then
-  # Lọc bỏ tiêu đề và các thông số thừa, chỉ giữ lại tên gói
+  echo -e "${BLUE}>>> Đang cài nốt các gói từ package_list.txt...${NC}"
   grep -v "Listing" package_list.txt | awk -F'/' '{print $1}' | xargs sudo apt install -y
-else
-  echo "Không tìm thấy package_list.txt, cài các app cơ bản..."
-  sudo apt install code brave-browser gh qgis kitty nvim fastfetch -y
 fi
 
-echo "--- HOÀN THÀNH! ---"
+echo -e "${GREEN}====================================${NC}"
+echo -e "${GREEN}   XONG RỒI! MÁY ĐÃ CẬP NHẬT MỚI   ${NC}"
+echo -e "${GREEN}====================================${NC}"
