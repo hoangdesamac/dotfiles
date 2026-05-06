@@ -3,6 +3,8 @@
 # =======================================================
 export ZSH="$HOME/.oh-my-zsh"
 export FILE_MANAGER=thunar
+
+# CHUẨN HÓA ANDROID HOME (Chỉ dùng 1 cái duy nhất ở đây)
 export ANDROID_HOME="$HOME/Android/Sdk"
 
 # Cấu hình đồ họa NVIDIA (LOQ 15IAX9 chạy Prime rất mượt)
@@ -31,9 +33,10 @@ export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 export PATH="/opt/nvim-linux-x86_64/bin:/snap/bin:$PATH"
 
-# Android Paths
-export PATH="$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools"
-export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/build-tools"
+# Android Paths (Đã chuẩn hóa, xóa build-tools thừa)
+export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
+export PATH="$PATH:$ANDROID_HOME/platform-tools"
+export PATH="$PATH:$ANDROID_HOME/emulator"
 
 # =======================================================
 # 4. OH-MY-ZSH & PLUGINS
@@ -75,7 +78,9 @@ alias ss='source ~/.zshrc'
 alias cls='clear'
 alias ht='htop'
 alias nv='nvim'
-
+alias tm='tmux'
+alias tmpi='tm attach -t Lanslides'
+alias tmap='tm attach -t android_dev'
 # --- LSD (ls đẹp hơn) ---
 alias ls='lsd'
 alias l='ls -l'
@@ -83,6 +88,15 @@ alias la='ls -a'
 alias lla='ls -la'
 alias lt='ls --tree'
 alias pi='ssh hoangdesamac@192.168.1.100'
+
+# --- Android CLI Shortcuts (Mới bổ sung) ---
+alias asdk='sdkmanager'
+alias avd='avdmanager'
+alias adbk='adb kill-server && adb start-server' # Reset ADB khi bị kẹt/mất kết nối
+alias adbl='adb logcat *:V'                      # Xem log Android theo thời gian thực
+alias adbd='adb devices'                         # Kiểm tra danh sách thiết bị
+alias scr='scrcpy --always-on-top'               # Bật stream màn hình điện thoại (nếu đã cài scrcpy)
+
 # =======================================================
 # 7. SDKMAN & CONDA (PHẢI Ở CUỐI CÙNG)
 # =======================================================
