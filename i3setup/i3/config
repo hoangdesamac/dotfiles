@@ -34,16 +34,17 @@ font pango:OperatorMono Nerd Font 0
 #####################################################################################################################
 # exec --no-startup-id xrandr --output eDP-1 --mode 1920x1080 --rate 60.00
 # exec xrandr --setprovideroutputsource modesetting NVIDIA-0
-exec_always --no-startup-id feh --bg-fill ~/Pictures/moon-nord.png
+exec --no-startup-id xset b off
+exec_always --no-startup-id feh --bg-fill ~/projects/dotfiles/i3setup/moon-nord.png
 # Tự động chạy Fcitx5 khi khởi động i3
 exec_always --no-startup-id fcitx5 -d
 # wifi
 exec --no-startup-id nm-applet
 # shortcut
-exec --no-startup-id spectacle --background
 exec --no-startup-id pasystray
 bindsym $mod+Ctrl+e exec --no-startup-id thunar
 
+bindsym $mod+Shift+s exec --no-startup-id flameshot gui
 bindsym $mod+Shift+b exec --no-startup-id okular
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -389,24 +390,29 @@ exec_always --no-startup-id ~/.config/i3/scripts/mouse.sh
 #####################################################################################################################
 
 bar {
-   	height 25
-	position top
+    height 25
+    position top
+
+    i3bar_command i3bar --transparency
+
     font pango:OperatorMono Nerd Font 12
-	status_command i3status
+
+    status_command i3status
+
     tray_padding 1
     strip_workspace_numbers yes
 
     colors {
-            separator  #1f222d
-            background #1f222d
-            statusline #81a1c1
+        separator  #1f222d
+        background #00000000
+        statusline #ffffff
 
-            #                   border  background text
-            focused_workspace  #1f222d #1f222d    #81a1c1
-            active_workspace   #1f222d #252936    #5e81ac
-            inactive_workspace #1f222d #1f222d    #4c566a
-            urgent_workspace   #1f222d #1f222d    #ee829f
-            binding_mode       #1f222d #81a1c1    #2e3440
+        #                   border    background  text
+        focused_workspace  #00000000 #00000000 #81a1c1
+        active_workspace   #00000000 #00000000 #5e81ac
+        inactive_workspace #00000000 #00000000 #4c566a
+        urgent_workspace   #00000000 #00000000 #ee829f
+        binding_mode       #00000000 #00000000 #2e3440
     }
 }
 

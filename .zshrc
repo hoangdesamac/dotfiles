@@ -108,3 +108,4 @@ if [ -f "$HOME/miniconda/bin/conda" ]; then
     eval "$($HOME/miniconda/bin/conda shell.zsh hook)"
 fi
 # <<< conda initialize <<<
+alias espidf='source ~/.espressif/v5.5.3/esp-idf/export.sh'
