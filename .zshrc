@@ -73,7 +73,6 @@ fi
 # 6. ALIASES (LỆNH TẮT)
 # =======================================================
 # --- Quản lý hệ thống ---
-alias update='sudo apt update && sudo apt upgrade -y'
 alias ss='source ~/.zshrc'
 alias cls='clear'
 alias ht='htop'
@@ -81,21 +80,13 @@ alias nv='nvim'
 alias tm='tmux'
 alias tmpi='tm attach -t Lanslides'
 alias tmap='tm attach -t android_dev'
+alias tmrs='tm attach -t rust'
 # --- LSD (ls đẹp hơn) ---
 alias ls='lsd'
 alias l='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
 alias lt='ls --tree'
-alias pi='ssh hoangdesamac@192.168.1.100'
-
-# --- Android CLI Shortcuts (Mới bổ sung) ---
-alias asdk='sdkmanager'
-alias avd='avdmanager'
-alias adbk='adb kill-server && adb start-server' # Reset ADB khi bị kẹt/mất kết nối
-alias adbl='adb logcat *:V'                      # Xem log Android theo thời gian thực
-alias adbd='adb devices'                         # Kiểm tra danh sách thiết bị
-alias scr='scrcpy --always-on-top'               # Bật stream màn hình điện thoại (nếu đã cài scrcpy)
 
 # =======================================================
 # 7. SDKMAN & CONDA (PHẢI Ở CUỐI CÙNG)
