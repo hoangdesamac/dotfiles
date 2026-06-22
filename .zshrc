@@ -78,8 +78,7 @@ alias cls='clear'
 alias ht='htop'
 alias nv='nvim'
 alias tm='tmux'
-alias tmpi='tm attach -t Lanslides'
-alias tmap='tm attach -t android_dev'
+alias tmrb='tm attach -t robocar'
 alias tmrs='tm attach -t rust'
 # --- LSD (ls đẹp hơn) ---
 alias ls='lsd'
@@ -112,3 +111,4 @@ alias espidf='source ~/.espressif/v5.5.3/esp-idf/export.sh'
 
 . "$HOME/.cargo/env"
 source "$HOME/.cargo/env"
+export PATH=$HOME/.platformio/penv/bin:$PATH

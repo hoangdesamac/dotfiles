@@ -44,7 +44,7 @@ exec --no-startup-id nm-applet
 exec --no-startup-id pasystray
 bindsym $mod+Ctrl+e exec --no-startup-id thunar
 
-bindsym $mod+Shift+s exec --no-startup-id flameshot gui
+bindsym $mod+Shift+s exec --no-startup-id QT_QPA_PLATFORM=xcb flameshot gui
 bindsym $mod+Shift+b exec --no-startup-id okular
 # switch to workspace
 bindsym $mod+1 workspace 1
