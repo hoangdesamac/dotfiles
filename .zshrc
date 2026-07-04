@@ -4,9 +4,9 @@
 export ZSH="$HOME/.oh-my-zsh"
 export FILE_MANAGER=thunar
 
-# CHUẨN HÓA ANDROID HOME (Chỉ dùng 1 cái duy nhất ở đây)
+# CHUẨN HÓA ANDROID HOME
 export ANDROID_HOME="$HOME/Android/Sdk"
-
+export XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share:$XDG_DATA_DIRS"
 # Cấu hình đồ họa NVIDIA (LOQ 15IAX9 chạy Prime rất mượt)
 export __GLX_VENDOR_LIBRARY_NAME=nvidia
 export __NV_PRIME_RENDER_OFFLOAD=1
@@ -33,10 +33,13 @@ export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 export PATH="/opt/nvim-linux-x86_64/bin:/snap/bin:$PATH"
 
-# Android Paths (Đã chuẩn hóa, xóa build-tools thừa)
+# Android Paths
 export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
 export PATH="$PATH:$ANDROID_HOME/platform-tools"
 export PATH="$PATH:$ANDROID_HOME/emulator"
+
+# Thêm sẵn đường dẫn Cargo/Rust & PlatformIO vào PATH thay vì source cả môi trường
+export PATH="$HOME/.cargo/bin:$HOME/.platformio/penv/bin:$PATH"
 
 # =======================================================
 # 4. OH-MY-ZSH & PLUGINS
@@ -45,23 +48,21 @@ plugins=(
     git
     zsh-autosuggestions
     zsh-syntax-highlighting
-    extract # Plugin giải nén cực nhanh bằng lệnh 'extract'
-    sudo    # Nhấn ESC 2 lần để thêm 'sudo' vào lệnh vừa gõ
+    extract 
+    sudo    
 )
 source $ZSH/oh-my-zsh.sh
 
 # =======================================================
 # 5. CÔNG CỤ TƯƠNG TÁC (FZF & THEME)
 # =======================================================
-# Khởi tạo FZF (Chỉ gọi 1 lần duy nhất)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Alias cho FZF (Dùng bat để preview code cực đẹp)
 alias f='fzf'
 alias fp='fzf --preview="bat --color=always {}"'
 alias fv='nvim $(fzf -m --preview="bat --color=always {}")'
 
-# Khởi tạo Oh-My-Posh (Đặt trước Pokemon để tránh lag)
+# Khởi tạo Oh-My-Posh
 eval "$(oh-my-posh init zsh --config ~/.poshthemes/atomicBit.omp.json)"
 
 # Pokemon Logo + System Info
@@ -70,7 +71,7 @@ if command -v pokemon-colorscripts > /dev/null; then
 fi
 
 # =======================================================
-# 6. ALIASES (LỆNH TẮT)
+# 6. ALIASES (LỆNH TẮT TỰ KÍCH HOẠT BẰNG TAY)
 # =======================================================
 # --- Quản lý hệ thống ---
 alias ss='source ~/.zshrc'
@@ -80,35 +81,26 @@ alias nv='nvim'
 alias tm='tmux'
 alias tmrb='tm attach -t robocar'
 alias tmrs='tm attach -t rust'
-# --- LSD (ls đẹp hơn) ---
+
+# --- LSD ---
 alias ls='lsd'
 alias l='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
 alias lt='ls --tree'
 
+# --- Kích hoạt môi trường bằng tay ---
+alias get_idf='. $HOME/.espressif/v5.5.3/esp-idf/export.sh'
+alias espidf='source ~/.espressif/v5.5.3/esp-idf/export.sh'
+alias esp_master='. /home/hoangdesamac/esp/esp-idf-master/export.sh' # Bản 6.2 lúc nãy của bạn
+
+# Lệnh bật Conda bằng tay khi nào cần mới dùng
+alias start_conda='source /home/hoangdesamac/miniconda3/etc/profile.d/conda.sh'
+
 # =======================================================
-# 7. SDKMAN & CONDA (PHẢI Ở CUỐI CÙNG)
+# 7. SDKMAN (PHẢI Ở CUỐI CÙNG)
 # =======================================================
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/hoangdesamac/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/hoangdesamac/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/hoangdesamac/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/hoangdesamac/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-alias espidf='source ~/.espressif/v5.5.3/esp-idf/export.sh'
-
-. "$HOME/.cargo/env"
-source "$HOME/.cargo/env"
-export PATH=$HOME/.platformio/penv/bin:$PATH
+# direnv
+eval "$(direnv hook zsh)"
