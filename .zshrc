@@ -46,10 +46,12 @@ export PATH="$HOME/.cargo/bin:$HOME/.platformio/penv/bin:$PATH"
 # =======================================================
 plugins=(
     git
+    sudo
+    web-search
+    copypath
+    extract
     zsh-autosuggestions
     zsh-syntax-highlighting
-    extract 
-    sudo    
 )
 source $ZSH/oh-my-zsh.sh
 
